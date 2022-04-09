@@ -18,9 +18,9 @@ namespace BackupsExtra.Tests
             IStorageAlgorithm algorithm = new SplitStorage();
             _backup = new BackupJopExtra.BackupJopExtra(".", algorithm, new LoggingConsole());
             
-            _pathFile = @"C:\Users\dewor\Desktop";
-            _backup.AddFile(_pathFile, "A");
-            _backup.AddFile(_pathFile, "B");
+            _pathFile = "./../../..";
+            _backup.AddFile(_pathFile, "file1.txt");
+            _backup.AddFile(_pathFile, "file2.txt");
             _backup.SaveRestorePoint();
         }
         
@@ -30,7 +30,7 @@ namespace BackupsExtra.Tests
             Assert.AreEqual(_backup.Jop.RestorePoints.Count, 1);
             Assert.AreEqual(_backup.Jop.RestorePoints[0].Files.Count, 2);
             
-            _backup.RemoveFile(_pathFile,"B");
+            _backup.RemoveFile(_pathFile,"file2.txt");
             _backup.SaveRestorePoint();
             _backup.SetNumberLimit(1);
             _backup.ClearingValueLimit();
@@ -41,7 +41,7 @@ namespace BackupsExtra.Tests
         [Test]
         public void CheckMerge()
         {
-            _backup.RemoveFile(_pathFile, "B");
+            _backup.RemoveFile(_pathFile, "file2.txt");
             _backup.SaveRestorePoint();
 
             _backup.Merge();

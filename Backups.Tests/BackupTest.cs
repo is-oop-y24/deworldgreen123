@@ -18,15 +18,15 @@ namespace Backups.Tests
         [Test]
         public void test1()
         {
-            const string pathFile = @"C:\Users\dewor\Desktop";
-            _backup.AddObject(pathFile, "A");
-            _backup.AddObject(pathFile, "B");
+            const string pathFile = "./../../..";
+            _backup.AddObject(pathFile, "file1.txt");
+            _backup.AddObject(pathFile, "file2.txt");
             _backup.MakeVirtualRestorePoint();
             
             Assert.AreEqual(_backup.VirtualRestorePoints.Count, 1);
             Assert.AreEqual(_backup.VirtualRestorePoints[0].Files.Count, 2);
             
-            _backup.RemoveObject(pathFile,"B");
+            _backup.RemoveObject(pathFile,"file2.txt");
             _backup.MakeVirtualRestorePoint();
             
             Assert.AreEqual(_backup.VirtualRestorePoints.Count, 2);
