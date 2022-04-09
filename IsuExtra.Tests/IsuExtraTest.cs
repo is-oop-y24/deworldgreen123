@@ -80,7 +80,7 @@ namespace IsuExtra.Tests
                 _isuExtraService.AddStudentToMegaFaculty("TINT1", student);
 
                 var lesson1 = new Lesson(1, groupName);
-                var lesson2 = new Lesson(1, new GroupName("M3202"));
+                var lesson2 = new Lesson(1, groupName);
 
                 megaFaculty.AddLesson(lesson1, 1);
                 Stream stream = ognp.AddStream(new TimeTable(), "BJD1.4", 30);

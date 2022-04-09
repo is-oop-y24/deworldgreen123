@@ -60,7 +60,7 @@ namespace IsuExtra.Services
                 if (GetStudentsOnMegaFaculty(ognp.GetNameMegaFaculty()) != null)
                 {
                     if (GetStudentsOnMegaFaculty(ognp.GetNameMegaFaculty()).Contains(student))
-                        throw new IsuExtraException("YOUR_ERROR");
+                        throw new IsuExtraException("YOUR_ERROR: an attempt to enroll on the ognp of your megafaculty");
                 }
 
                 Stream stream = ognp.FindStream(streamName);
@@ -70,8 +70,12 @@ namespace IsuExtra.Services
                     TimeTable timeTableStudent = GetStudentMegaFaculty(student).GetTimeTableToGroup(student.GetGroupName());
                     if (timeTableStudent.InteractionTime(stream.GetLessons()))
                     {
-                        throw new IsuExtraException("YOUR_ERROR");
+                        throw new IsuExtraException("YOUR_ERROR: timetable intersection");
                     }
+                }
+                else
+                {
+                    throw new IsuExtraException("YOUR_ERROR: the student does not exist");
                 }
 
                 stream.AddStudent(student);
@@ -128,7 +132,7 @@ namespace IsuExtra.Services
 
         public List<Student> GetStudentsOnMegaFaculty(string name)
         {
-            return _megaFaculties.FirstOrDefault(megaFaculty => megaFaculty.GetName() == name)?.GetStudents();
+            return _megaFaculties.FirstOrDefault(megaFaculty => megaFaculty.GetName() == name).GetStudents();
         }
 
         public MegaFaculty GetStudentMegaFaculty(Student student)
